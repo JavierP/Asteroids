@@ -19,6 +19,7 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
     keepGameRunning = True
+    player_score = 0
 
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
@@ -48,12 +49,13 @@ def main():
             for sht in shots:
                 if sht.collides_with(obj):
                     log_event("asteroid_shot")
-                    obj.kill()
+                    if obj.split():
+                        player_score += 1
                     sht.kill()
             if player.collides_with(obj):
-                log_event("player_hit")
-                print("Game over!")
+                print(f"Game over! your score was {player_score}")
                 sys.exit()
+                log_event("player_hit")
 
         for obj in drawable:
             obj.draw(screen)
